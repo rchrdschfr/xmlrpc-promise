@@ -6,6 +6,7 @@ function promisify(methodName) {
 
   return function() {
     var client = method.apply(xmlrpc, arguments);
+    client.options.headers['Content-Type'] = 'text/plain';
     client.methodCall = Promise.promisify(client.methodCall, client);
     return client;
   }
